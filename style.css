@@ -1,0 +1,71 @@
+// ========== DARK/LIGHT MODE TOGGLE ==========
+const themeBtn = document.getElementById('themeToggle');
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
+// ========== COUNTER GAME ==========
+let count = 0;
+const counterBtn = document.getElementById('counterBtn');
+const countDisplay = document.getElementById('count');
+
+counterBtn.addEventListener('click', () => {
+    count++;
+    countDisplay.textContent = count;
+});
+
+// ========== FAQ COLLAPSIBLE ==========
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+// ========== FORM VALIDATION ==========
+const form = document.getElementById('signupForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+const formSuccess = document.getElementById('formSuccess');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let valid = true;
+    formSuccess.textContent = '';
+    
+    // Name validation
+    if (nameInput.value.trim() === '') {
+        nameError.textContent = 'Name is required.';
+        valid = false;
+    } else {
+        nameError.textContent = '';
+    }
+
+    // Email validation
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!emailPattern.test(emailInput.value)) {
+        emailError.textContent = 'Please enter a valid email.';
+        valid = false;
+    } else {
+        emailError.textContent = '';
+    }
+
+    // Password validation
+    if (passwordInput.value.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters.';
+        valid = false;
+    } else {
+        passwordError.textContent = '';
+    }
+
+    if (valid) {
+        formSuccess.textContent = 'Form submitted successfully!';
+        form.reset();
+    }
+});
